@@ -22,11 +22,11 @@ function putNumInDisplay(value){
 function putOpInDisplay(operator){
     if (operatorUsed !== null){
         calculate();
-    } else {
+    }
+    
     operatorUsed = operator;
     displayValue += operator;
     findfirstNumber(displayValue, operatorUsed);
-    };
     
     document.getElementById("display").value = displayValue;
 };

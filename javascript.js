@@ -1,33 +1,48 @@
 let displayValue = '';
 
-let firstnumber = '';
-let operatorUsed = '';
+let firstNumber = '';
+let operatorUsed = null;
 let secondNumber = '';
 
-function putNumInDisplay(value){
-    displayValue += value;
-    document.getElementById("display").value = displayValue;
-};
 
 function clearDisplay(){
     displayValue = "";
-    firstnumber = '';
+    firstNumber = '';
     operatorUsed = '';
     secondNumber = '';
 
     document.getElementById("display").value = displayValue;
 };
 
+function putNumInDisplay(value){
+    displayValue += value;
+    document.getElementById("display").value = displayValue;
+};
+
 function putOpInDisplay(operator){
-    firstnumber = displayValue;
+    if (operatorUsed !== null){
+        calculate();
+    } else {
     operatorUsed = operator;
     displayValue += operator;
+    findfirstNumber(displayValue, operatorUsed);
+    };
+    
     document.getElementById("display").value = displayValue;
+};
+
+function findfirstNumber(values, operator){
+    const parts = values.split(operator);
+
+    if (parts.length === 2) {
+        firstNumber = parts[0];
+        return firstNumber;
+    }
+    return null;
 }
 
 function findSecondNumber(values, operator){
     const index = values.indexOf(operator);
-
     if (index !== -1){
         secondNumber = values.slice(index + 1);
         return secondNumber;
@@ -37,40 +52,22 @@ function findSecondNumber(values, operator){
 function calculate(){
     findSecondNumber(displayValue, operatorUsed);
 
-    const result = operate(firstnumber, operatorUsed, secondNumber);
+    const result = operate(firstNumber, operatorUsed, secondNumber);
 
-    displayValue = result;
+    displayValue = result.toString();
     document.getElementById("display").value = displayValue;
-}
 
-function add(a, b) {
-    return +a + +b;
-};
-
-function subtract(a , b) {
-    return +a - +b;
-};
-
-function multiply(a, b) {
-    return +a * +b;
-};
-
-function divide(a , b) {
-    if (b === 0){
-        return "ERROR";
-    } else {
-    return +a / +b;
-    };
+    operatorUsed = null;
 };
 
 function operate(numOne, operator, numTwo){
     if (operator === "+") {
-        return add(numOne, numTwo);
+        return +numOne + +numTwo;
     }else if (operator === "-") {
-        return subtract(numOne, numTwo);
+        return +numOne - +numTwo;
     }else if (operator === "*") {
-        return multiply(numOne, numTwo);
+        return +numOne * +numTwo;
     }else if (operator === "/") {
-        return divide(numOne, numTwo);
+        return +numOne / +numTwo;
     };
 };

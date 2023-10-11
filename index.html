@@ -2,31 +2,39 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Calculator366</title>
+        <title>Miaoculator</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="header">
-            <h1>Calculator366</h1>
+            <h1>Miaoculator</h1>
         </div>
         <div class="calculatorKeys">
             <input type="text" id="display" readonly>
-            <button class="operator add" onclick="putOpInDisplay('+')">+</button>
-            <button class="operator subtraction" onclick="putOpInDisplay('-')">-</button>
-            <button class="operator multiply" onclick="putOpInDisplay('*')">*</button>
-            <button class="operator divide" onclick="putOpInDisplay('/')">/</button>
-            <button class="clear" onclick="clearDisplay()">Clear</button>
-            <button onclick="putNumInDisplay(7)">7</button>
-            <button onclick="putNumInDisplay(8)">8</button>
-            <button onclick="putNumInDisplay(9)">9</button>
-            <button onclick="putNumInDisplay(4)">4</button>
-            <button onclick="putNumInDisplay(5)">5</button>
-            <button onclick="putNumInDisplay(6)">6</button>
-            <button onclick="putNumInDisplay(1)">1</button>
-            <button onclick="putNumInDisplay(2)">2</button>
-            <button onclick="putNumInDisplay(3)">3</button>
-            <button onclick="putNumInDisplay(0)">0</button>
-            <button>.</button>
-            <button onclick="calculate()">=</button>
+            <div class="buttons-box">
+                <button class="buttons clear" onclick="clearDisplay()">AC</button>
+                <button class="buttons">+/-</button>
+                <button class="buttons">%</button>
+                <button class="buttons" onclick="putOpInDisplay('/')">/</button>
+                <button class="buttons" onclick="putNumInDisplay(7)">7</button>
+                <button class="buttons" onclick="putNumInDisplay(8)">8</button>
+                <button class="buttons" onclick="putNumInDisplay(9)">9</button>
+                <button class="buttons" onclick="putOpInDisplay('*')">*</button>
+                <button class="buttons" onclick="putNumInDisplay(4)">4</button>
+                <button class="buttons" onclick="putNumInDisplay(5)">5</button>
+                <button class="buttons" onclick="putNumInDisplay(6)">6</button>
+                <button class="buttons" onclick="putOpInDisplay('-')">-</button>
+                <button class="buttons" onclick="putNumInDisplay(1)">1</button>
+                <button class="buttons" onclick="putNumInDisplay(2)">2</button>
+                <button class="buttons" onclick="putNumInDisplay(3)">3</button>
+                <button class="buttons" onclick="putOpInDisplay('+')">+</button>
+                <button class="buttons" style="width: 223px;" onclick="putNumInDisplay(0)">0</button>
+                <button class="buttons">.</button>
+                <button class="buttons" onclick="calculate()">=</button>
+            </div>
+        </div>
+        <div class="footer">
+            Broly366
         </div>
         <script src="javascript.js"></script>
     </body>

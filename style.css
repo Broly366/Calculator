@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+#display {
+    width: 441.5px;
+    height: 75px;
+    font-size: 50px;
+    text-align: end;
+}
+
+.calculatorKeys{
+    display: flex;
+    width: 450px;
+    height: 585px;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    padding: 10px
+};
+
+.buttons-box{
+    display: flex;
+}
+
+.buttons{
+    width: 109.5px;
+    height: 100px;
+    padding: 0;
+    margin: 0;
+    font-size: 25px; 
+};
+

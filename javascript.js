@@ -3,12 +3,12 @@ let displayValue = '';
 let firstNumber = '';
 let operatorUsed = null;
 let secondNumber = '';
-
+let calculated = false;
 
 function clearDisplay(){
     displayValue = "";
     firstNumber = '';
-    operatorUsed = '';
+    operatorUsed = null;
     secondNumber = '';
 
     document.getElementById("display").value = displayValue;
@@ -51,13 +51,20 @@ function findSecondNumber(values, operator){
 
 function calculate(){
     findSecondNumber(displayValue, operatorUsed);
-
+    
     const result = operate(firstNumber, operatorUsed, secondNumber);
 
-    displayValue = result.toString();
-    document.getElementById("display").value = displayValue;
+    const hasMoreThanTwoDecimals = (result * 100) % 1 !== 0;
 
+    if (isNaN(result)){
+        return "";
+    }
+
+    const roundedResult = hasMoreThanTwoDecimals ? result.toFixed(2) : result;
+
+    displayValue = roundedResult.toString();
     operatorUsed = null;
+    return document.getElementById("display").value = displayValue;
 };
 
 function operate(numOne, operator, numTwo){
@@ -68,6 +75,12 @@ function operate(numOne, operator, numTwo){
     }else if (operator === "*") {
         return +numOne * +numTwo;
     }else if (operator === "/") {
-        return +numOne / +numTwo;
+        if (numTwo == 0){
+            clearDisplay();
+            return document.getElementById("display").value = "ERROR";
+            
+        } else {
+            return +numOne / +numTwo;
+        };
     };
 };

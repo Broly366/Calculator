@@ -2,16 +2,22 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin: 0;
+    background-color: black;
 }
+
 
 #display {
     width: 441.5px;
     height: 75px;
     font-size: 50px;
     text-align: end;
+    border-radius: 25px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
 }
 
 .calculatorKeys{
@@ -20,7 +26,9 @@ body {
     height: 585px;
     flex-wrap: wrap;
     border: 1px solid black;
-    padding: 10px
+    padding: 10px;
+    background-color: orange;
+    border-radius: 25px;
 };
 
 .buttons-box{
@@ -33,5 +41,14 @@ body {
     padding: 0;
     margin: 0;
     font-size: 25px; 
+    border-radius: 25px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
 };
+
+.buttons:hover{
+        background-color:#002ead;
+        transition: 0.7s;
+}
 

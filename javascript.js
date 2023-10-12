@@ -4,6 +4,9 @@ let firstNumber = '';
 let operatorUsed = null;
 let secondNumber = '';
 let calculated = false;
+let dotUsed = null;
+
+let numInp = false;
 
 function clearDisplay(){
     displayValue = "";
@@ -15,23 +18,34 @@ function clearDisplay(){
 };
 
 function putNumInDisplay(value){
+
+    if (numInp === true){
+        displayValue = '';
+    }
+    numInp = false;
+
     displayValue += value;
     document.getElementById("display").value = displayValue;
 };
 
 function putOpInDisplay(operator){
-    if (operatorUsed !== null){
+    if (displayValue.indexOf(operatorUsed) !== 0){
         calculate();
     }
-    
+    numInp = false;
     operatorUsed = operator;
     displayValue += operator;
-    findfirstNumber(displayValue, operatorUsed);
+    if (displayValue.indexOf(operatorUsed) !== 0){
+        findfirstNumber(displayValue, operatorUsed);
+    }
+
     
     document.getElementById("display").value = displayValue;
 };
 
 function findfirstNumber(values, operator){
+    
+    
     const parts = values.split(operator);
 
     if (parts.length === 2) {
@@ -49,6 +63,18 @@ function findSecondNumber(values, operator){
     };
 };
 
+function addDot(dot){
+    if (dotUsed === null){
+        dotUsed = dot;
+        displayValue += dot;
+        document.getElementById("display").value = displayValue;
+    } else{
+        displayValue += "";
+    };
+
+    numInp = false;
+};
+
 function calculate(){
     findSecondNumber(displayValue, operatorUsed);
     
@@ -64,6 +90,7 @@ function calculate(){
 
     displayValue = roundedResult.toString();
     operatorUsed = null;
+    numInp = true;
     return document.getElementById("display").value = displayValue;
 };
 

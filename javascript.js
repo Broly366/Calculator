@@ -17,6 +17,18 @@ function clearDisplay(){
     document.getElementById("display").value = displayValue;
 };
 
+function calculatePercent(){
+    firstNumber = document.getElementById("display").value;
+
+    if(firstNumber === ''){
+        return displayValue = '';
+    }
+    const percentage = firstNumber / 100;
+
+    displayValue = percentage;
+    document.getElementById("display").value = displayValue;
+}
+
 function putNumInDisplay(value){
 
     if (numInp === true){

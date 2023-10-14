@@ -6,11 +6,20 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div class="explanation">
+            <div class="title">Rules</div>
+            <div>
+                <ul>
+                    <li>Double operator doesn't work, except -(ES. 5--5 = 10, 5**5 = ERROR) </li>
+                    <li>A operation is between 2 numbers, third operand will be excluded (ES 5-5 = 0, 5-5-5 = 0)</li>
+                </ul>
+            </div>
+        </div>
         <div class="calculatorKeys">
             <input type="text" id="display" readonly>
             <div class="buttons-box">
                 <button class="buttons operator" style="width: 223px;" onclick="clearDisplay()">AC</button>
-                <button class="buttons operator" onclick="calculatePercent()">%</button>
+                <button class="buttons operator" onclick="putOpInDisplay('%')">%</button>
                 <button class="buttons number" onclick="putOpInDisplay('/')">/</button>
                 <button class="buttons number" onclick="putNumInDisplay(7)">7</button>
                 <button class="buttons number" onclick="putNumInDisplay(8)">8</button>
@@ -25,7 +34,7 @@
                 <button class="buttons number" onclick="putNumInDisplay(3)">3</button>
                 <button class="buttons operator" onclick="putOpInDisplay('+')">+</button>
                 <button class="buttons number" style="width: 223px;" onclick="putNumInDisplay(0)">0</button>
-                <button class="buttons " onclick="addDot('.')">.</button>
+                <button class="buttons " onclick="addPeriod('.')">.</button>
                 <button class="buttons operator" onclick="calculate()">=</button>
             </div>
         </div>

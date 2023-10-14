@@ -1,109 +1,120 @@
 let displayValue = '';
-
 let firstNumber = '';
-let operatorUsed = null;
+let operator = '';
 let secondNumber = '';
+let operatorCounter = 0;
+let isError = 0;
 let calculated = false;
-let dotUsed = null;
+let operatorUsed = false;
 
-let numInp = false;
-
-function clearDisplay(){
-    displayValue = "";
+function reset(){
+    displayValue = '';
     firstNumber = '';
-    operatorUsed = null;
+    operator = '';
     secondNumber = '';
-
-    document.getElementById("display").value = displayValue;
-};
-
-function calculatePercent(){
-    firstNumber = document.getElementById("display").value;
-
-    if(firstNumber === ''){
-        return displayValue = '';
-    }
-    const percentage = firstNumber / 100;
-
-    displayValue = percentage;
-    document.getElementById("display").value = displayValue;
+    operatorCounter = 0;
+    isError = 0;
+    calculated = false;
+    operatorUsed = false;
 }
+function clearDisplay(){
+    displayValue = '';
+    firstNumber = '';
+    operator = '';
+    secondNumber = '';
+    operatorCounter = 0;
 
-function putNumInDisplay(value){
-
-    if (numInp === true){
-        displayValue = '';
-    }
-    numInp = false;
-
-    displayValue += value;
     document.getElementById("display").value = displayValue;
 };
 
-function putOpInDisplay(operator){
-    if (displayValue.indexOf(operatorUsed) !== 0){
-        calculate();
-    }
-    numInp = false;
-    operatorUsed = operator;
-    displayValue += operator;
-    if (displayValue.indexOf(operatorUsed) !== 0){
-        findfirstNumber(displayValue, operatorUsed);
-    }
-
-    
-    document.getElementById("display").value = displayValue;
-};
-
-function findfirstNumber(values, operator){
-    
-    
-    const parts = values.split(operator);
-
-    if (parts.length === 2) {
-        firstNumber = parts[0];
-        return firstNumber;
-    }
-    return null;
-}
-
-function findSecondNumber(values, operator){
-    const index = values.indexOf(operator);
-    if (index !== -1){
-        secondNumber = values.slice(index + 1);
-        return secondNumber;
-    };
-};
-
-function addDot(dot){
-    if (dotUsed === null){
-        dotUsed = dot;
-        displayValue += dot;
+function putNumInDisplay(num){
+    if(calculated === true){
+        clearDisplay();
+        displayValue += num;
         document.getElementById("display").value = displayValue;
-    } else{
-        displayValue += "";
-    };
+        calculated = false;
+    } else {
+        displayValue += num;
+        document.getElementById("display").value = displayValue;
+        if (operatorUsed === true){
+            operatorCounter += 1;
+            operatorUsed = false;
+        }
+    }
+};
 
-    numInp = false;
+function putOpInDisplay(op){
+
+    if (operatorCounter === 2){
+        operatorCounter = 1;
+        operator = op;
+        calculate();
+        calculated = false;
+        operatorUsed = true;
+        displayValue += op;
+        document.getElementById("display").value = displayValue;
+    } else {
+        operator = op;
+        displayValue += op;
+        calculated = false;
+        document.getElementById("display").value = displayValue;
+        operatorCounter ++;
+    }
+};
+
+function addPeriod(period){
+    displayValue += period;
+    document.getElementById("display").value = displayValue;
+}
+
+
+function splitvalues(values) {
+    const regex = /(-?\d+(\.\d+)?)([-+*/%])(-?\d+(\.\d+)?)/;
+    const match = values.match(regex);
+
+    if (match) {
+        const firstNumber = match[1];
+        const operator = match[3];
+        const secondNumber = match[4];
+
+        return { firstNumber, operator, secondNumber };
+    } else {
+        isError = 2;
+        return "ERROR ENTER Num op Num";
+    }
 };
 
 function calculate(){
-    findSecondNumber(displayValue, operatorUsed);
+    const values = splitvalues(displayValue);
+
+    firstNumber = values.firstNumber;
+    operator = values.operator;
+    secondNumber = values.secondNumber;
+
+    const result = operate(firstNumber, operator, secondNumber);
+    if (isError === 1){
+        displayValue = "ERROR";
+        document.getElementById("display").value = displayValue;
+        reset();
+    }else if(isError === 2){
+        displayValue = "ERROR";
+        document.getElementById("display").value = displayValue;
+        reset();
+    } else if(isError === 3){
+        displayValue = "ERROR";
+        document.getElementById("display").value = displayValue;
+        reset();
+    }else {
+        const hasMoreThanTwoDecimals = (result * 100) % 1 !== 0;
+
+        const roundedResult = hasMoreThanTwoDecimals ? result.toFixed(2) : result;
     
-    const result = operate(firstNumber, operatorUsed, secondNumber);
+        displayValue = roundedResult.toString();
 
-    const hasMoreThanTwoDecimals = (result * 100) % 1 !== 0;
-
-    if (isNaN(result)){
-        return "";
+        document.getElementById("display").value = displayValue;
+        calculated = true;
     }
-
-    const roundedResult = hasMoreThanTwoDecimals ? result.toFixed(2) : result;
-
-    displayValue = roundedResult.toString();
-    operatorUsed = null;
-    numInp = true;
-    return document.getElementById("display").value = displayValue;
+    operatorCounter = 1;
 };
 
 function operate(numOne, operator, numTwo){
@@ -116,10 +127,17 @@ function operate(numOne, operator, numTwo){
     }else if (operator === "/") {
         if (numTwo == 0){
             clearDisplay();
-            return document.getElementById("display").value = "ERROR";
-            
+            isError = 3;
         } else {
             return +numOne / +numTwo;
+        }
+    }else if(operator === '%'){
+        if (Number.isInteger(+numOne) && Number.isInteger(+numTwo)){
+            return +numOne % +numTwo; 
+        } else {
+            clearDisplay();
+            isError = 1;
+            
         };
-    };
+    }
 };

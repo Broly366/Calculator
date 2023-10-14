@@ -7,6 +7,7 @@ let isError = 0;
 let calculated = false;
 let operatorUsed = false;
 
+//This function resets all the values of the global variables without changing the text on the display 
 function reset(){
     displayValue = '';
     firstNumber = '';
@@ -17,16 +18,22 @@ function reset(){
     calculated = false;
     operatorUsed = false;
 }
+
+//clear the display and all the values of the global variables  
 function clearDisplay(){
     displayValue = '';
     firstNumber = '';
     operator = '';
     secondNumber = '';
     operatorCounter = 0;
+    isError = 0;
+    calculated = false;
+    operatorUsed = false;
 
     document.getElementById("display").value = displayValue;
 };
 
+//Insert number in the display variable
 function putNumInDisplay(num){
     if(calculated === true){
         clearDisplay();
@@ -43,16 +50,27 @@ function putNumInDisplay(num){
     }
 };
 
+//Insert operator in the display variable and calculates if there is a o
 function putOpInDisplay(op){
 
-    if (operatorCounter === 2){
-        operatorCounter = 1;
+    if (displayValue[0] !== op && operatorCounter === 1){
         operator = op;
         calculate();
         calculated = false;
         operatorUsed = true;
         displayValue += op;
         document.getElementById("display").value = displayValue;
+        operatorUsed = '';
+        operatorCounter = 0;
+    } else if(displayValue[0] === op && operatorCounter === 2){
+        operator = op;
+        calculate();
+        calculated = false;
+        operatorUsed = true;
+        displayValue += op;
+        document.getElementById("display").value = displayValue;
+        operatorUsed = '';
+        operatorCounter = 0;
     } else {
         operator = op;
         displayValue += op;
@@ -114,7 +132,7 @@ function calculate(){
         document.getElementById("display").value = displayValue;
         calculated = true;
     }
-    operatorCounter = 1;
+    operatorCounter = 0;
 };
 
 function operate(numOne, operator, numTwo){

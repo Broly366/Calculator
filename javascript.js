@@ -71,6 +71,10 @@ function putOpInDisplay(op){
         document.getElementById("display").value = displayValue;
         operatorUsed = '';
         operatorCounter = 0;
+    } else if(operatorCounter > 1){
+        displayValue = "ERROR"
+        document.getElementById("display").value = displayValue;
+        reset();
     } else {
         operator = op;
         displayValue += op;
